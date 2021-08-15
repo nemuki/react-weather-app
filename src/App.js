@@ -1,22 +1,18 @@
 import React from 'react';
 import axios from "axios";
-import WeatherCard from "./conpornents/WeatherCard";
+import WeatherCard from "./components/WeatherCard";
 
 const App = () => {
-    const [weatherData, setWeatherData] = React.useState(null)
+    const [weatherData, setWeatherData] = React.useState({})
 
-    React.useEffect(() => {
-        const fetchWeatherData = async function () {
-            // You can await here
+    React.useEffect( () => {
+        const getWeatherData = async () =>{
             const response = await axios.get("https://weather.tsukumijima.net/api/forecast?city=360010");
             setWeatherData(response.data)
-            // ...
         }
-        fetchWeatherData()
+        getWeatherData()
         console.log("Get")
     }, [])
-
-    if (!weatherData) return null
 
     return (
         <div>
@@ -32,7 +28,6 @@ const App = () => {
                         weather={data.detail.weather}
                     />
                 )
-
             })}
         </div>
     );
